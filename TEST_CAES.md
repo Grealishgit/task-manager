@@ -75,3 +75,17 @@ $ curl "http://127.0.0.1:9000/api/tasks/report?date=2026-04-01" \
  -H "Accept: application/json"
 {"date":"2026-04-01","summary":{"high":{"pending":0,"in_progress":0,"done":0},"medium":{"pending":0,"in_progress":0,"done":0},"low":{"pending":1,"in_progress":0,"done":0}}}
 Hunter@DESKTOP-QM2MQ3M M
+
+
+DB_DATABASE=railway
+MYSQL_PUBLIC_URL=mysql://root:dwbdDOldveszdWksWgTPwTgUaJBUryXU@centerbeam.proxy.rlwy.net:29640/railway
+ROOT_PASSWORD=dwbdDOldveszdWksWgTPwTgUaJBUryXU
+DB_DATABASE=railway
+DB_PASSWORD=dwbdDOldveszdWksWgTPwTgUaJBUryXU
+DB_PORT=3306
+DB_USERNAME=root
+
+DB_HOST=mysql.railway.internal
+MYSQLHOST=
+
+
