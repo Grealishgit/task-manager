@@ -337,6 +337,7 @@
 
 <body>
 
+    @verbatim
     <div id="app">
         <header>
             <h1>⚡ Task Manager</h1>
@@ -465,6 +466,7 @@
             {{ toast.message }}
         </div>
     </div>
+    @endverbatim
 
     <script>
         const {
