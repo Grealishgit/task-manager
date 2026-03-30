@@ -477,7 +477,7 @@
             data() {
                 const today = new Date().toISOString().split('T')[0];
                 return {
-                    API: 'https://task-manager-production-a822.up.railway.app/api',
+                    API: 'https://task-manager-production-cd6b.up.railway.app/api',
                     tasks: [],
                     loading: false,
                     loadingTasks: false,
