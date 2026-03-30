@@ -21,14 +21,9 @@ COPY . .
 # Install PHP dependencies
 RUN composer install --no-dev --optimize-autoloader
 
-# Copy environment file
-RUN cp .env.example .env
-
-# Generate app key
-RUN php artisan key:generate
-
 # Expose port
 EXPOSE 8000
 
-# Start server - use shell form so $PORT variable is expanded correctly
-CMD php artisan migrate --force && php -S 0.0.0.0:${PORT:-8000} -t public
+# Start server (bind to Railway-provided $PORT)
+# Note: keep startup independent of DB availability (avoid hard-failing on migrations).
+CMD ["sh", "-lc", "php -S 0.0.0.0:${PORT:-8000} -t public"]
