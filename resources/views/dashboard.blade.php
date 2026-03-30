@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en" data-theme="light">
 
 <head>
     <meta charset="UTF-8">
@@ -208,7 +208,6 @@
                         </div>
                     </div>
                     <div v-else class="empty">
-                        <div class="empty-icon">📈</div>
                         <p>Select a date and click Generate Report</p>
                     </div>
                 </div>
@@ -226,180 +225,180 @@
     @endverbatim
 
     <script>
-    const {
-        createApp
-    } = Vue;
-    createApp({
-        data() {
-            const today = new Date().toISOString().split('T')[0];
-            const theme = localStorage.getItem('tera-theme') || 'dark';
-            document.documentElement.setAttribute('data-theme', theme);
-            return {
-                API: 'https://task-manager-production-cd6b.up.railway.app/api',
-                showModal: true,
-                isDark: theme === 'dark',
-                tasks: [],
-                allTasks: [],
-                loading: false,
-                loadingTasks: false,
-                loadingReport: false,
-                currentFilter: '',
-                reportDate: today,
-                report: null,
-                form: {
-                    title: '',
-                    due_date: today,
-                    priority: 'high'
-                },
-                filters: [{
-                        label: 'All',
-                        value: ''
-                    },
-                    {
-                        label: 'Pending',
-                        value: 'pending'
-                    },
-                    {
-                        label: 'In Progress',
-                        value: 'in_progress'
-                    },
-                    {
-                        label: 'Done',
-                        value: 'done'
-                    },
-                ],
-                toast: {
-                    show: false,
-                    message: '',
-                    type: 'success'
-                },
-            };
-        },
-        mounted() {
-            this.loadTasks();
-            this.loadAllTasks();
-        },
-        methods: {
-            async request(method, endpoint, body = null) {
-                const options = {
-                    method,
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Accept': 'application/json'
-                    }
-                };
-                if (body) options.body = JSON.stringify(body);
-                const res = await fetch(this.API + endpoint, options);
-                return res.json();
-            },
-            async loadTasks() {
-                this.loadingTasks = true;
-                const url = this.currentFilter ? `/tasks?status=${this.currentFilter}` : '/tasks';
-                const data = await this.request('GET', url);
-                this.tasks = data.data || [];
-                this.loadingTasks = false;
-            },
-            async loadAllTasks() {
-                const data = await this.request('GET', '/tasks');
-                this.allTasks = data.data || [];
-            },
-            async createTask() {
-                if (!this.form.title || !this.form.due_date) {
-                    this.showToast('Please fill in all fields.', 'error');
-                    return;
-                }
-                this.loading = true;
-                const data = await this.request('POST', '/tasks', this.form);
-                this.loading = false;
-                if (data.data) {
-                    this.showToast('Task created successfully!', 'success');
-                    this.form.title = '';
-                    this.loadTasks();
-                    this.loadAllTasks();
-                } else {
-                    const errors = data.errors ? Object.values(data.errors).flat().join(' ') : data.message;
-                    this.showToast(errors, 'error');
-                }
-            },
-            async advanceStatus(task) {
-                const data = await this.request('PATCH', `/tasks/${task.id}/status`);
-                if (data.data) {
-                    this.showToast(`Status → "${data.data.status}"`, 'success');
-                    this.loadTasks();
-                    this.loadAllTasks();
-                } else {
-                    this.showToast(data.message, 'error');
-                }
-            },
-            async deleteTask(task) {
-                if (!confirm(`Delete "${task.title}"?`)) return;
-                const data = await this.request('DELETE', `/tasks/${task.id}`);
-                if (data.message === 'Task deleted successfully.') {
-                    this.showToast('Task deleted.', 'success');
-                    this.loadTasks();
-                    this.loadAllTasks();
-                } else {
-                    this.showToast(data.message, 'error');
-                }
-            },
-            async loadReport() {
-                if (!this.reportDate) {
-                    this.showToast('Please select a date.', 'error');
-                    return;
-                }
-                this.loadingReport = true;
-                const data = await this.request('GET', `/tasks/report?date=${this.reportDate}`);
-                this.loadingReport = false;
-                if (data.summary) {
-                    this.report = data;
-                } else {
-                    this.showToast(data.message || 'Failed to load report.', 'error');
-                }
-            },
-            setFilter(value) {
-                this.currentFilter = value;
-                this.loadTasks();
-            },
-            toggleTheme() {
-                this.isDark = !this.isDark;
-                const theme = this.isDark ? 'dark' : 'light';
+        const {
+            createApp
+        } = Vue;
+        createApp({
+            data() {
+                const today = new Date().toISOString().split('T')[0];
+                const theme = localStorage.getItem('task-api-theme') || 'light';
                 document.documentElement.setAttribute('data-theme', theme);
-                localStorage.setItem('tera-theme', theme);
-            },
-            formatDate(d) {
-                if (!d) return '—';
-                return new Date(d).toLocaleDateString('en-US', {
-                    year: 'numeric',
-                    month: 'short',
-                    day: 'numeric'
-                });
-            },
-            formatTime(d) {
-                if (!d) return '';
-                return new Date(d).toLocaleTimeString('en-US', {
-                    hour: '2-digit',
-                    minute: '2-digit'
-                });
-            },
-            isDueSoon(d) {
-                const diff = (new Date(d) - new Date()) / 86400000;
-                return diff >= 0 && diff <= 2;
-            },
-            isOverdue(d) {
-                return new Date(d) < new Date();
-            },
-            showToast(message, type = 'success') {
-                this.toast = {
-                    show: true,
-                    message,
-                    type
+                return {
+                    API: 'https://task-manager-production-cd6b.up.railway.app/api',
+                    showModal: true,
+                    isDark: theme === 'dark',
+                    tasks: [],
+                    allTasks: [],
+                    loading: false,
+                    loadingTasks: false,
+                    loadingReport: false,
+                    currentFilter: '',
+                    reportDate: today,
+                    report: null,
+                    form: {
+                        title: '',
+                        due_date: today,
+                        priority: 'high'
+                    },
+                    filters: [{
+                            label: 'All',
+                            value: ''
+                        },
+                        {
+                            label: 'Pending',
+                            value: 'pending'
+                        },
+                        {
+                            label: 'In Progress',
+                            value: 'in_progress'
+                        },
+                        {
+                            label: 'Done',
+                            value: 'done'
+                        },
+                    ],
+                    toast: {
+                        show: false,
+                        message: '',
+                        type: 'success'
+                    },
                 };
-                setTimeout(() => {
-                    this.toast.show = false;
-                }, 3500);
             },
-        }
-    }).mount('#app');
+            mounted() {
+                this.loadTasks();
+                this.loadAllTasks();
+            },
+            methods: {
+                async request(method, endpoint, body = null) {
+                    const options = {
+                        method,
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Accept': 'application/json'
+                        }
+                    };
+                    if (body) options.body = JSON.stringify(body);
+                    const res = await fetch(this.API + endpoint, options);
+                    return res.json();
+                },
+                async loadTasks() {
+                    this.loadingTasks = true;
+                    const url = this.currentFilter ? `/tasks?status=${this.currentFilter}` : '/tasks';
+                    const data = await this.request('GET', url);
+                    this.tasks = data.data || [];
+                    this.loadingTasks = false;
+                },
+                async loadAllTasks() {
+                    const data = await this.request('GET', '/tasks');
+                    this.allTasks = data.data || [];
+                },
+                async createTask() {
+                    if (!this.form.title || !this.form.due_date) {
+                        this.showToast('Please fill in all fields.', 'error');
+                        return;
+                    }
+                    this.loading = true;
+                    const data = await this.request('POST', '/tasks', this.form);
+                    this.loading = false;
+                    if (data.data) {
+                        this.showToast('Task created successfully!', 'success');
+                        this.form.title = '';
+                        this.loadTasks();
+                        this.loadAllTasks();
+                    } else {
+                        const errors = data.errors ? Object.values(data.errors).flat().join(' ') : data.message;
+                        this.showToast(errors, 'error');
+                    }
+                },
+                async advanceStatus(task) {
+                    const data = await this.request('PATCH', `/tasks/${task.id}/status`);
+                    if (data.data) {
+                        this.showToast(`Status → "${data.data.status}"`, 'success');
+                        this.loadTasks();
+                        this.loadAllTasks();
+                    } else {
+                        this.showToast(data.message, 'error');
+                    }
+                },
+                async deleteTask(task) {
+                    if (!confirm(`Delete "${task.title}"?`)) return;
+                    const data = await this.request('DELETE', `/tasks/${task.id}`);
+                    if (data.message === 'Task deleted successfully.') {
+                        this.showToast('Task deleted.', 'success');
+                        this.loadTasks();
+                        this.loadAllTasks();
+                    } else {
+                        this.showToast(data.message, 'error');
+                    }
+                },
+                async loadReport() {
+                    if (!this.reportDate) {
+                        this.showToast('Please select a date.', 'error');
+                        return;
+                    }
+                    this.loadingReport = true;
+                    const data = await this.request('GET', `/tasks/report?date=${this.reportDate}`);
+                    this.loadingReport = false;
+                    if (data.summary) {
+                        this.report = data;
+                    } else {
+                        this.showToast(data.message || 'Failed to load report.', 'error');
+                    }
+                },
+                setFilter(value) {
+                    this.currentFilter = value;
+                    this.loadTasks();
+                },
+                toggleTheme() {
+                    this.isDark = !this.isDark;
+                    const theme = this.isDark ? 'dark' : 'light';
+                    document.documentElement.setAttribute('data-theme', theme);
+                    localStorage.setItem('task-api-theme', theme);
+                },
+                formatDate(d) {
+                    if (!d) return '—';
+                    return new Date(d).toLocaleDateString('en-US', {
+                        year: 'numeric',
+                        month: 'short',
+                        day: 'numeric'
+                    });
+                },
+                formatTime(d) {
+                    if (!d) return '';
+                    return new Date(d).toLocaleTimeString('en-US', {
+                        hour: '2-digit',
+                        minute: '2-digit'
+                    });
+                },
+                isDueSoon(d) {
+                    const diff = (new Date(d) - new Date()) / 86400000;
+                    return diff >= 0 && diff <= 2;
+                },
+                isOverdue(d) {
+                    return new Date(d) < new Date();
+                },
+                showToast(message, type = 'success') {
+                    this.toast = {
+                        show: true,
+                        message,
+                        type
+                    };
+                    setTimeout(() => {
+                        this.toast.show = false;
+                    }, 3500);
+                },
+            }
+        }).mount('#app');
     </script>
 </body>
 

@@ -52,7 +52,7 @@ class TaskController extends Controller
         }
 
         return response()->json([
-            'message' => 'Tasks retrieved successfully.',
+            'message' => 'Tasks fetched successfully.',
             'data'    => $tasks,
         ]);
     }

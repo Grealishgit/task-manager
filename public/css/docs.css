@@ -135,6 +135,12 @@ nav {
     font-weight: 500;
 }
 
+.nav-center a:hover {
+    text-decoration: underline;
+    color: var(--accent);
+    background: var(--surface);
+}
+
 .nav-right {
     display: flex;
     align-items: center;
@@ -618,7 +624,7 @@ nav {
 
 .pk {
     background: rgba(99, 102, 241, 0.12);
-    color: var(--accent2);
+    color: #056b5b;
     padding: 2px 7px;
     border-radius: 4px;
     font-size: 0.7rem;
@@ -650,6 +656,112 @@ nav {
     .content {
         margin-left: 0;
         padding: 24px 20px;
+        max-width: 100%;
+    }
+
+    nav {
+        padding: 0 20px;
+    }
+
+    .nav-title {
+        font-size: 1rem;
+    }
+
+    .nav-center a:nth-child(2) {
+        display: none;
+    }
+}
+
+@media (max-width: 720px) {
+    nav {
+        height: auto;
+        padding: 10px 16px;
+        flex-wrap: wrap;
+        gap: 8px 12px;
+    }
+
+    .layout {
+        padding-top: 96px;
+    }
+
+    .nav-center,
+    .nav-right {
+        width: 100%;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    .nav-center a,
+    .nav-link {
+        font-size: 0.82rem;
+        padding: 6px 10px;
+    }
+
+    .hero h1 {
+        font-size: 2.1rem;
+    }
+
+    .hero p {
+        font-size: 0.98rem;
+    }
+
+    .endpoint-header {
+        flex-wrap: wrap;
+        gap: 8px 12px;
+    }
+
+    .endpoint-desc {
+        margin-left: 0;
+        width: 100%;
+    }
+
+    .endpoint-path {
+        overflow-wrap: anywhere;
+    }
+
+    .rules-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 700px) {
+    .param-table,
+    .db-table {
+        display: block;
+        width: 100%;
+        overflow-x: auto;
+        white-space: nowrap;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .param-table th,
+    .param-table td,
+    .db-table th,
+    .db-table td {
+        padding: 8px 10px;
+    }
+}
+
+@media (max-width: 520px) {
+    .hero h1 {
+        font-size: 1.85rem;
+    }
+
+    .hero-meta {
+        gap: 8px;
+    }
+
+    .method-badge {
+        font-size: 0.66rem;
+    }
+
+    .endpoint-path {
+        font-size: 0.8rem;
+    }
+
+    .code-block {
+        font-size: 0.72rem;
     }
 }
 
