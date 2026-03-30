@@ -4,10 +4,20 @@ FROM php:8.4-cli
 RUN apt-get update && apt-get install -y \
     git \
     curl \
+    libicu-dev \
+    libonig-dev \
+    libxml2-dev \
     libzip-dev \
     zip \
     unzip \
-    && docker-php-ext-install pdo pdo_mysql zip
+    && docker-php-ext-configure intl \
+    && docker-php-ext-install \
+        bcmath \
+        intl \
+        mbstring \
+        pdo \
+        pdo_mysql \
+        zip
 
 # Install Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
