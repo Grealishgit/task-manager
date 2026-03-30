@@ -30,5 +30,5 @@ RUN php artisan key:generate
 # Expose port
 EXPOSE 8000
 
-# Start server
-CMD php artisan migrate --force && php -S 0.0.0.0:8000 -t public
+# Start server - use shell form so $PORT variable is expanded correctly
+CMD php artisan migrate --force && php -S 0.0.0.0:${PORT:-8000} -t public
