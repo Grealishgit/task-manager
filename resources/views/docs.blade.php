@@ -547,8 +547,7 @@
 
             <div class="divider"></div>
             <div class="section" id="snapshots">
-                <div
-                    style="display:grid; grid-template-columns:repeat(4,1fr); gap:12px; max-width:1000px; margin:0 auto;">
+                <div class="snapshot-grid">
                     <img src="https://27gy2ox4et.ucarecd.net/c450f97a-e3e6-4060-90f0-60e143f15dcc/Screenshot20260330193115.png"
                         alt="Snap1"
                         style="width:100%;height:100%;object-fit:cover;border-radius:8px; border: 1px solid #056b5b;">
@@ -589,12 +588,40 @@
                         style="width:100%;height:100%;object-fit:cover;border-radius:8px; border: 1px solid #056b5b;">
                 </div>
             </div>
+            <div class="snapshot-viewer" id="snapshotViewer" aria-hidden="true">
+                <div class="snapshot-frame" role="dialog" aria-modal="true" aria-label="Snapshot preview">
+                    <img id="snapshotViewerImage" alt="Expanded snapshot">
+                    <button class="snapshot-close" type="button" onclick="closeSnapshotViewer()"
+                        aria-label="Close preview">Close</button>
+                </div>
+            </div>
     </div>
 
     </main>
     </div>
 
     <script>
+        const snapshotViewer = document.getElementById('snapshotViewer');
+        const snapshotViewerImage = document.getElementById('snapshotViewerImage');
+
+        function openSnapshotViewer(src, altText) {
+            if (!snapshotViewer || !snapshotViewerImage) return;
+            snapshotViewerImage.src = src;
+            snapshotViewerImage.alt = altText || 'Snapshot';
+            snapshotViewer.classList.add('is-open');
+            snapshotViewer.setAttribute('aria-hidden', 'false');
+            document.body.classList.add('snapshot-open');
+        }
+
+        function closeSnapshotViewer() {
+            if (!snapshotViewer || !snapshotViewerImage) return;
+            snapshotViewer.classList.remove('is-open');
+            snapshotViewer.setAttribute('aria-hidden', 'true');
+            snapshotViewerImage.src = '';
+            snapshotViewerImage.alt = '';
+            document.body.classList.remove('snapshot-open');
+        }
+
         function toggleTheme() {
             const html = document.documentElement;
             const isDark = html.getAttribute('data-theme') === 'dark';
@@ -625,6 +652,29 @@
             document.querySelectorAll('.sidebar-link').forEach(link => {
                 link.addEventListener('click', closeSidebar);
             });
+            document.querySelectorAll('#snapshots img').forEach(img => {
+                img.setAttribute('role', 'button');
+                img.setAttribute('tabindex', '0');
+                img.addEventListener('click', () => openSnapshotViewer(img.src, img.alt));
+                img.addEventListener('keydown', (event) => {
+                    if (event.key === 'Enter' || event.key === ' ') {
+                        event.preventDefault();
+                        openSnapshotViewer(img.src, img.alt);
+                    }
+                });
+            });
+        });
+
+        if (snapshotViewer) {
+            snapshotViewer.addEventListener('click', (event) => {
+                if (event.target === snapshotViewer) closeSnapshotViewer();
+            });
+        }
+
+        window.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape' && snapshotViewer && snapshotViewer.classList.contains('is-open')) {
+                closeSnapshotViewer();
+            }
         });
 
         window.addEventListener('resize', () => {
