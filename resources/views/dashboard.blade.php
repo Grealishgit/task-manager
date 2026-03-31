@@ -234,7 +234,8 @@
                 const theme = localStorage.getItem('task-api-theme') || 'light';
                 document.documentElement.setAttribute('data-theme', theme);
                 return {
-                    API: 'https://task-manager-production-cd6b.up.railway.app/api',
+                    API: window.location.hostname === 'coding-challenge.hantardev.tech' ?
+                        '/api' : 'https://task-manager-production-cd6b.up.railway.app/api',
                     showModal: true,
                     isDark: theme === 'dark',
                     tasks: [],
