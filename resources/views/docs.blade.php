@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en" data-theme="light">
 
 <head>
     <meta charset="UTF-8">
@@ -9,9 +9,6 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Onest+Sans:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap"
         rel="stylesheet">
-
-
-
 </head>
 
 <body>
@@ -99,7 +96,11 @@
                 </div>
 
                 <p>For production:</p>
-                <div class="code-block">https://task-manager-production-cd6b.up.railway.app/api</div>
+                <div class="code-block">
+                    <p>https://task-manager-production-cd6b.up.railway.app/api</p>
+                    <p style="color:red">or if it fails use</p>
+                    <p>https://coding-challenge.hantardev.tech/docs</p>
+                </div>
                 <div class="code-label">Required Headers</div>
                 <div class="code-block">
                     <span class="c-key">Content-Type</span>: <span class="c-str">application/json</span>
@@ -544,7 +545,53 @@
                 </div>
             </div>
 
-        </main>
+            <div class="divider"></div>
+            <div class="section" id="snapshots">
+                <div
+                    style="display:grid; grid-template-columns:repeat(4,1fr); gap:12px; max-width:1000px; margin:0 auto;">
+                    <img src="https://27gy2ox4et.ucarecd.net/c450f97a-e3e6-4060-90f0-60e143f15dcc/Screenshot20260330193115.png"
+                        alt="Snap1"
+                        style="width:100%;height:100%;object-fit:cover;border-radius:8px; border: 1px solid #056b5b;">
+                    <img src="https://27gy2ox4et.ucarecd.net/663ef9a4-6371-4b57-86ee-e49733e8994b/Screenshot20260330193544.png"
+                        alt=""
+                        style="width:100%;height:100%;object-fit:cover;border-radius:8px; border: 1px solid #056b5b;">
+                    <img src="https://27gy2ox4et.ucarecd.net/b7e6e61e-d5b2-4b37-8af3-d8f5b2cfcad1/Screenshot20260330193433.png"
+                        alt=""
+                        style="width:100%;height:100%;object-fit:cover;border-radius:8px; border: 1px solid #056b5b;">
+                    <img src="https://27gy2ox4et.ucarecd.net/ccc58815-fdef-4698-b130-f52d240b369b/Screenshot20260330193326.png"
+                        alt=""
+                        style="width:100%;height:100%;object-fit:cover;border-radius:8px; border: 1px solid #056b5b;">
+                    <img src="https://27gy2ox4et.ucarecd.net/1f434c52-496f-47ff-85d8-9ede22579535/Screenshot20260330193340.png"
+                        alt=""
+                        style="width:100%;height:100%;object-fit:cover;border-radius:8px; border: 1px solid #056b5b;">
+                    <img src="https://27gy2ox4et.ucarecd.net/0857c134-05ba-496f-bc45-3b2c16c0b84f/Screenshot20260330193451.png"
+                        alt=""
+                        style="width:100%;height:100%;object-fit:cover;border-radius:8px; border: 1px solid #056b5b;">
+                    <img src="https://27gy2ox4et.ucarecd.net/91482cf8-ecbe-42bb-97d5-4c5292cf243e/Screenshot20260330193619.png"
+                        alt=""
+                        style="width:100%;height:100%;object-fit:cover;border-radius:8px; border: 1px solid #056b5b;">
+                    <img src="https://27gy2ox4et.ucarecd.net/d0dfbb8a-ef73-4197-b099-ddea683b0c85/Screenshot20260330193519.png"
+                        alt=""
+                        style="width:100%;height:100%;object-fit:cover;border-radius:8px; border: 1px solid #056b5b;">
+                    <img src="https://27gy2ox4et.ucarecd.net/4145557f-b9f0-4f63-837c-bfa7243a1a0f/report.png" alt=""
+                        style="width:100%;height:100%;object-fit:cover;border-radius:8px; border: 1px solid #056b5b;">
+                    <img src="https://27gy2ox4et.ucarecd.net/e2be9f58-068b-41c4-ac7b-01e3d652f76b/create.png" alt=""
+                        style="width:100%;height:100%;object-fit:cover;border-radius:8px; border: 1px solid #056b5b;">
+                    <img src="https://27gy2ox4et.ucarecd.net/15abd06e-2ed2-4d6b-956b-f525ae6b4039/Screenshot20260330192354.png"
+                        alt=""
+                        style="width:100%;height:100%;object-fit:cover;border-radius:8px; border: 1px solid #056b5b;">
+                    <img src="https://27gy2ox4et.ucarecd.net/3c5a784f-bb6e-44b1-bb90-a0146acfaf9d/delete.png" alt=""
+                        style="width:100%;height:100%;object-fit:cover;border-radius:8px; border: 1px solid #056b5b;">
+                    <img src="https://27gy2ox4et.ucarecd.net/4ba4aae2-b94e-4bce-8548-ec6b208eeea5/list.png" alt=""
+                        style="width:100%;height:100%;object-fit:cover;border-radius:8px; border: 1px solid #056b5b;">
+                    <img src="https://27gy2ox4et.ucarecd.net/7ef3a7d9-733a-47c3-9dfd-4f2464c3c6af/apitaskpost.png"
+                        alt=""
+                        style="width:100%;height:100%;object-fit:cover;border-radius:8px; border: 1px solid #056b5b;">
+                </div>
+            </div>
+    </div>
+
+    </main>
     </div>
 
     <script>

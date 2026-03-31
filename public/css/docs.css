@@ -72,7 +72,7 @@ body::before {
     content: '';
     position: fixed;
     inset: 0;
-    
+
     pointer-events: none;
     z-index: 0;
 }
@@ -187,7 +187,7 @@ nav {
 
 .sidebar-toggle {
     display: none;
-    z-index:999;
+    z-index: 999;
     height: 36px;
     padding: 0 12px;
     border-radius: 10px;
@@ -661,6 +661,17 @@ nav {
     font-family: 'JetBrains Mono', monospace;
 }
 
+/* .image-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    max-width: 1000px;
+    margin: 0 auto;
+    background-color: var(--bg);
+    padding: 5px;
+    border-radius: 8px;
+} */
+
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -816,6 +827,7 @@ nav {
 }
 
 @media (max-width: 700px) {
+
     .param-table,
     .db-table {
         display: block;

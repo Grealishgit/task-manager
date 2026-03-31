@@ -23,12 +23,13 @@ Homestead.json
 Homestead.yaml
 Thumbs.db
 newreadme.md
+SELFHOSTING.md
 
 
-CREATE USER 'teratasks'@'localhost' IDENTIFIED BY 'TaskAPI$2026';
+# CREATE USER 'teratasks'@'localhost' IDENTIFIED BY 'TaskAPI$2026';
 
-GRANT ALL PRIVILEGES ON task_manager.* TO 'teratasks'@'localhost';
+# GRANT ALL PRIVILEGES ON task_manager.* TO 'teratasks'@'localhost';
 
-FLUSH PRIVILEGES;
+# FLUSH PRIVILEGES;
 
-EXIT;
+# EXIT;
