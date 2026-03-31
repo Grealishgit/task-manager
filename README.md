@@ -65,8 +65,28 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 
 # Task Manager API - Use Cases and Testing Guide
 
+#use the following if port is ihaving issues with serve command
+`php -S 127.0.0.1:8000 -t public`
+
+# Resulting from this error
+```json
+        php artisan serve --port=8080` or `php artisan serve
+
+            Failed to listen on 127.0.0.1:8000 (reason: ?)
+            Failed to listen on 127.0.0.1:8001 (reason: ?)
+            Failed to listen on 127.0.0.1:8003 (reason: ?)
+            Failed to listen on 127.0.0.1:8004 (reason: ?)
+            Failed to listen on 127.0.0.1:8005 (reason: ?)
+            Failed to listen on 127.0.0.1:8006 (reason: ?)
+            Failed to listen on 127.0.0.1:8007 (reason: ?)
+            Failed to listen on 127.0.0.1:8008 (reason: ?)
+            Failed to listen on 127.0.0.1:8009 (reason: ?)
+            Failed to listen on 127.0.0.1:8010 (reason: ?)
+```
+
+
 ## Overview
-This document provides clear testing and usage examples for the Task Manager API. Base URL: http://127.0.0.1:9000
+This document provides clear testing and usage examples for the Task Manager API. Base URL: http://127.0.0.1:8000
 
 ## Endpoints Summary
 | Method | Endpoint | Description |
@@ -88,12 +108,12 @@ This document provides clear testing and usage examples for the Task Manager API
 
 **cURL**
 ```bash
-curl http://127.0.0.1:9000/api/tasks -H "Accept: application/json"
+curl http://127.0.0.1:8000/api/tasks -H "Accept: application/json"
 ```
 
 **Postman**
 - Method: GET
-- URL: http://127.0.0.1:9000/api/tasks
+- URL: http://127.0.0.1:8000/api/tasks
 - Headers: Accept: application/json
 
 **Response (success)**
@@ -131,7 +151,7 @@ curl http://127.0.0.1:9000/api/tasks -H "Accept: application/json"
 
 **cURL**
 ```bash
-curl -X POST http://127.0.0.1:9000/api/tasks \
+curl -X POST http://127.0.0.1:8000/api/tasks \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
     -d '{"title":"Fix login bug","due_date":"2026-04-01","priority":"high"}'
@@ -139,7 +159,7 @@ curl -X POST http://127.0.0.1:9000/api/tasks \
 
 **Postman**
 - Method: POST
-- URL: http://127.0.0.1:9000/api/tasks
+- URL: http://127.0.0.1:8000/api/tasks
 - Headers: Content-Type: application/json, Accept: application/json
 - Body: raw (JSON)
 
@@ -194,13 +214,13 @@ curl -X POST http://127.0.0.1:9000/api/tasks \
 
 **cURL**
 ```bash
-curl -X PATCH http://127.0.0.1:9000/api/tasks/1/status \
+curl -X PATCH http://127.0.0.1:8000/api/tasks/1/status \
     -H "Accept: application/json"
 ```
 
 **Postman**
 - Method: PATCH
-- URL: http://127.0.0.1:9000/api/tasks/1/status
+- URL: http://127.0.0.1:8000/api/tasks/1/status
 - Headers: Accept: application/json
 - Body: none
 
@@ -234,13 +254,13 @@ curl -X PATCH http://127.0.0.1:9000/api/tasks/1/status \
 
 **cURL**
 ```bash
-curl -X DELETE http://127.0.0.1:9000/api/tasks/1 \
+curl -X DELETE http://127.0.0.1:8000/api/tasks/1 \
     -H "Accept: application/json"
 ```
 
 **Postman**
 - Method: DELETE
-- URL: http://127.0.0.1:9000/api/tasks/1
+- URL: http://127.0.0.1:8000/api/tasks/1
 - Headers: Accept: application/json
 
 **Response (success)**
@@ -262,13 +282,13 @@ curl -X DELETE http://127.0.0.1:9000/api/tasks/1 \
 
 **cURL**
 ```bash
-curl "http://127.0.0.1:9000/api/tasks/report?date=2026-04-01" \
+curl "http://127.0.0.1:8000/api/tasks/report?date=2026-04-01" \
     -H "Accept: application/json"
 ```
 
 **Postman**
 - Method: GET
-- URL: http://127.0.0.1:9000/api/tasks/report?date=2026-04-01
+- URL: http://127.0.0.1:8000/api/tasks/report?date=2026-04-01
 - Headers: Accept: application/json
 
 **Response**
@@ -298,34 +318,34 @@ curl "http://127.0.0.1:9000/api/tasks/report?date=2026-04-01" \
 ## Complete Flow Example
 1. Create a task
 ```bash
-curl -X POST http://127.0.0.1:9000/api/tasks \
+curl -X POST http://127.0.0.1:8000/api/tasks \
     -H "Content-Type: application/json" \
     -d '{"title":"Write unit tests","due_date":"2026-04-01","priority":"low"}'
 ```
 
 2. View all tasks
 ```bash
-curl http://127.0.0.1:9000/api/tasks -H "Accept: application/json"
+curl http://127.0.0.1:8000/api/tasks -H "Accept: application/json"
 ```
 
 3. Mark as in_progress
 ```bash
-curl -X PATCH http://127.0.0.1:9000/api/tasks/1/status -H "Accept: application/json"
+curl -X PATCH http://127.0.0.1:8000/api/tasks/1/status -H "Accept: application/json"
 ```
 
 4. Mark as done
 ```bash
-curl -X PATCH http://127.0.0.1:9000/api/tasks/1/status -H "Accept: application/json"
+curl -X PATCH http://127.0.0.1:8000/api/tasks/1/status -H "Accept: application/json"
 ```
 
 5. Delete task (only after status is done)
 ```bash
-curl -X DELETE http://127.0.0.1:9000/api/tasks/1 -H "Accept: application/json"
+curl -X DELETE http://127.0.0.1:8000/api/tasks/1 -H "Accept: application/json"
 ```
 
 6. Generate report for a date
 ```bash
-curl "http://127.0.0.1:9000/api/tasks/report?date=2026-04-01" -H "Accept: application/json"
+curl "http://127.0.0.1:8000/api/tasks/report?date=2026-04-01" -H "Accept: application/json"
 ```
 
 ## Postman Collection Outline
@@ -368,11 +388,11 @@ Create a new collection in Postman with these requests:
 ## Quick Reference
 | Action | cURL Command |
 | --- | --- |
-| GET all tasks | `curl http://127.0.0.1:9000/api/tasks -H "Accept: application/json"` |
-| POST create task | `curl -X POST http://127.0.0.1:9000/api/tasks -H "Content-Type: application/json" -d '{"title":"Task","due_date":"2026-04-01","priority":"high"}'` |
-| PATCH update status | `curl -X PATCH http://127.0.0.1:9000/api/tasks/1/status -H "Accept: application/json"` |
-| DELETE task | `curl -X DELETE http://127.0.0.1:9000/api/tasks/1 -H "Accept: application/json"` |
-| GET report | `curl "http://127.0.0.1:9000/api/tasks/report?date=2026-04-01" -H "Accept: application/json"` |
+| GET all tasks | `curl http://127.0.0.1:8000/api/tasks -H "Accept: application/json"` |
+| POST create task | `curl -X POST http://127.0.0.1:8000/api/tasks -H "Content-Type: application/json" -d '{"title":"Task","due_date":"2026-04-01","priority":"high"}'` |
+| PATCH update status | `curl -X PATCH http://127.0.0.1:8000/api/tasks/1/status -H "Accept: application/json"` |
+| DELETE task | `curl -X DELETE http://127.0.0.1:8000/api/tasks/1 -H "Accept: application/json"` |
+| GET report | `curl "http://127.0.0.1:8000/api/tasks/report?date=2026-04-01" -H "Accept: application/json"` |
 
 
 ## License
