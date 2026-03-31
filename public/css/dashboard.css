@@ -5,9 +5,9 @@
 
 
 :root[data-theme="dark"] {
-    --bg: #080b14;
+    --bg: #060b15;
     --bg2: #0d1117;
-    --surface: #1c1c1c;
+    --surface: #131620;
     --surface-hover: #1c1c1c;
     --border: rgba(5, 107, 92, 0.08);
     --border-strong: rgba(4, 85, 73, 0.08);
@@ -825,6 +825,19 @@ tbody td {
         padding: 10px 16px;
         flex-wrap: wrap;
         gap: 8px 12px;
+        position: fixed;
+        left: 0;
+        right: 0;
+    }
+
+    .main {
+        padding-top: 85px;
+    }
+
+    .theme-toggle {
+        position: absolute;
+        top: 10px;
+        right: 16px;
     }
 
     .nav-brand {

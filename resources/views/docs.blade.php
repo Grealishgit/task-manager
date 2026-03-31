@@ -26,15 +26,19 @@
             <a class="nav-link" href="/docs">Docs</a>
         </div>
         <div class="nav-right">
+            <button class="sidebar-toggle" id="sidebarToggle" onclick="toggleSidebar()" aria-controls="sidebar"
+                aria-expanded="false">Menu</button>
             <a class="nav-link" href="/">← Return to Tasks</a>
             <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn">☀️</button>
         </div>
     </nav>
 
+    <div class="sidebar-backdrop" onclick="closeSidebar()" aria-hidden="true"></div>
+
     <div class="layout">
 
         <!-- SIDEBAR -->
-        <aside class="sidebar">
+        <aside class="sidebar" id="sidebar">
             <div class="sidebar-section">
                 <div class="sidebar-label">Overview</div>
                 <a class="sidebar-link active" href="#intro">Introduction</a>
@@ -93,7 +97,17 @@
                 <div class="section-desc">All API requests are prefixed with <code
                         style="font-family:'JetBrains Mono',monospace; color:var(--accent2); background:var(--surface); padding:2px 8px; border-radius:4px;">/api</code>
                 </div>
+
+                <p>For production:</p>
                 <div class="code-block">https://task-manager-production-cd6b.up.railway.app/api</div>
+                <div class="code-label">Required Headers</div>
+                <div class="code-block">
+                    <span class="c-key">Content-Type</span>: <span class="c-str">application/json</span>
+                    <span class="c-key">Accept</span>: <span class="c-str">application/json</span>
+                </div>
+
+                <p style='margin-top: 20px;'>For development:</p>
+                <div class="code-block">http://localhost:8000/api</div>
                 <div class="code-label">Required Headers</div>
                 <div class="code-block">
                     <span class="c-key">Content-Type</span>: <span class="c-str">application/json</span>
@@ -508,22 +522,26 @@
                 <div class="section-title">Deployment</div>
                 <div class="section-desc">The API is hosted on Railway with a MySQL 8 database plugin.</div>
                 <div class="code-label">Local Setup</div>
-                <div class="code-block">git clone https://github.com/Grealishgit/task-manager.git
-                    cd task-manager
-                    composer install
-                    cp .env.example .env
-                    php artisan key:generate
-                    php artisan migrate
-                    php -S 127.0.0.1:9000 -t public</div>
+                <div class="code-block">
+                    <p>git clone https://github.com/Grealishgit/task-manager.git</p>
+                    <p>cd task-manager</p>
+                    <p>composer install</p>
+                    <p>cp .env.example .env</p>
+                    <p>php artisan key:generate</p>
+                    <p>php artisan migrate</p>
+                    <p>php -S 127.0.0.1:9000 -t public</p>
+                </div>
                 <div class="code-label">Railway Environment Variables</div>
-                <div class="code-block">APP_KEY=<span class="c-str">base64:...</span>
-                    APP_ENV=<span class="c-str">production</span>
-                    DB_CONNECTION=<span class="c-str">mysql</span>
-                    DB_HOST=<span class="c-str">containers-us-west-xxx.railway.app</span>
-                    DB_PORT=<span class="c-num">XXXXX</span>
-                    DB_DATABASE=<span class="c-str">railway</span>
-                    DB_USERNAME=<span class="c-str">root</span>
-                    DB_PASSWORD=<span class="c-str">your_password</span></div>
+                <div class="code-block">
+                    <p>APP_KEY=<span class="c-str">base64:...</span></p>
+                    <p>APP_ENV=<span class="c-str">production</span></p>
+                    <p>DB_CONNECTION= <span class="c-str">mysql</span></p>
+                    <p>DB_HOST=<span class="c-str">containers-us-west-xxx.railway.app</span></p>
+                    <p>DB_PORT=<span class="c-num">XXXXX</span></p>
+                    <p>DB_DATABASE=<span class="c-str">railway</span></p>
+                    <p>DB_USERNAME=<span class="c-str">root</span></p>
+                    <p>DB_PASSWORD=<span class="c-str">your_password</span></p>
+                </div>
             </div>
 
         </main>
@@ -539,11 +557,31 @@
             document.getElementById('themeBtn').textContent = isDark ? '🌙' : '☀️';
         }
 
+        function toggleSidebar() {
+            const body = document.body;
+            const isOpen = body.classList.toggle('sidebar-open');
+            const toggle = document.getElementById('sidebarToggle');
+            if (toggle) toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+        }
+
+        function closeSidebar() {
+            document.body.classList.remove('sidebar-open');
+            const toggle = document.getElementById('sidebarToggle');
+            if (toggle) toggle.setAttribute('aria-expanded', 'false');
+        }
+
         // Load saved theme
         const saved = localStorage.getItem('tera-theme') || 'dark';
         document.documentElement.setAttribute('data-theme', saved);
         document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('themeBtn').textContent = saved === 'dark' ? '☀️' : '🌙';
+            document.querySelectorAll('.sidebar-link').forEach(link => {
+                link.addEventListener('click', closeSidebar);
+            });
+        });
+
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 900) closeSidebar();
         });
 
         // Active sidebar link on scroll
